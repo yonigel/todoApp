@@ -1,0 +1,26 @@
+[
+    {
+    "id": 0,
+    "title": "First todo",
+    "description": "this is a new todo",
+    "priority": 0,
+    "state": 0,
+    "creator": "yonigel"
+    },
+    {
+    "id": 1,
+    "title": "second todo",
+    "description": "this is a new todo",
+    "priority": 0,
+    "state": 0,
+    "creator": "yonigel"
+    },
+    {
+    "id": 2,
+    "title": "third todo",
+    "description": "this is a new todo",
+    "priority": 0,
+    "state": 0,
+    "creator": "yonigel"
+    }
+]

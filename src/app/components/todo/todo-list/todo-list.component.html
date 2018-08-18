@@ -1,3 +1,43 @@
-<p>
-  todo-list works!
-</p>
+<ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Select all</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Done selected</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Delete selected</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#">Disabled</a>
+    </li>
+  </ul>
+
+<ul class="list-group list-group-flush">
+  <li *ngFor="let todo of todoList | async" class="list-group-item form-group" for="exampleCheck1">
+    <div class="form-group form-check">
+      <div class="row" style="position: relative">
+        <div class="col-md-1" style="text-align: center; margin: auto auto;">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        </div>
+        <div class="col-md-7">
+          <h5>{{todo.title}}</h5>
+          <h6>{{todo.description}}</h6>
+        </div>
+        <div class="col-md-4" style="text-align: left; margin-left: auto; margin-right: 0;">
+          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary">Description</button>
+          <button type="button" class="btn btn-success">Done</button>
+        </div>
+      </div>
+      
+      
+    </div>
+      
+
+  </li>
+  
+  
+</ul>
+
+

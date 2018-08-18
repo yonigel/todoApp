@@ -11,6 +11,7 @@ import { DeleteTodoComponent } from './components/todo/delete-todo/delete-todo.c
 import { RouterModule, Routes } from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconRegistry } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const appRoutes: Routes = [
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false }

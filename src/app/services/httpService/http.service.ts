@@ -1,0 +1,16 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpServiceInterface } from './http-service-interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HttpService implements HttpServiceInterface{
+
+  constructor(private http: HttpClient) { }
+
+  get(url: string): Observable<any> {
+    return this.http.get('assets/todoListData.json')
+  }
+}

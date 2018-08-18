@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../../../services/httpService/http.service';
+import { Todo } from '../../../models/todo';
+import { TodoService } from '../../../services/todoService/todo.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-todo',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainTodoComponent implements OnInit {
 
-  constructor() { }
+  private todoList: Observable<any>
+
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
+    this.todoList = this.todoService.getTodos()
   }
 
 }

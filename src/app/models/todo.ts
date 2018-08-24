@@ -1,6 +1,7 @@
 import { TodoPriority } from "../enums/todo-priority.enum";
 import { TodoState } from "../enums/todo-state.enum";
 import { User } from "./user";
+import { Category } from "./category";
 
 export class Todo {
 
@@ -10,6 +11,7 @@ export class Todo {
     priority: TodoPriority
     state: TodoState
     creator: User
+    category: Category
 
     constructor(){}
 }

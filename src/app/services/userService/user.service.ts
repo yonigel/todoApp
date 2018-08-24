@@ -6,4 +6,10 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   constructor() { }
+
+  isUserLoggedIn(): boolean {
+    var result: boolean
+    result = false
+    return result
+  }
 }

@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TodoService implements TodoServiceInterface {
-
   
   private readonly BASE_TODO_LIST_URL = 'assets/todoListData.json'
 

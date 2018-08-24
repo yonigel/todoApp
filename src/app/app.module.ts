@@ -12,10 +12,18 @@ import { RouterModule, Routes } from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconRegistry } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const appRoutes: Routes = [
-  { path: 'todos', component: MainTodoComponent },
+  { 
+    path: 'todos', 
+    component: MainTodoComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'login', component: LoginComponent},
   { path: '',
     redirectTo: '/todos',
     pathMatch: 'full'
@@ -30,18 +38,23 @@ const appRoutes: Routes = [
     TodoListComponent,
     AddTodoComponent,
     EditTodoComponent,
-    DeleteTodoComponent
+    DeleteTodoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false }
     )
   ],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

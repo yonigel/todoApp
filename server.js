@@ -10,7 +10,7 @@ var userRoute = require('./server/routes/user.route')
 
 var mongoDB = process.env.MONGODB_URI || DB_URL
 
-mongoose.connect(mongoDB)
+mongoose.connect(mongoDB, {useNewUrlParser: true})
 mongoose.Promise = global.Promise
 
 var db = mongoose.connection

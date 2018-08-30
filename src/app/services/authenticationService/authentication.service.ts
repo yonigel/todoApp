@@ -3,6 +3,7 @@ import { AuthenticationServiceInterface } from './authentication-service-interfa
 import { config } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpService } from '../httpService/http.service';
+import { UserConnectionEventService } from '../events/user-connection-event.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,15 @@ export class AuthenticationService implements AuthenticationServiceInterface {
 
   private readonly AUTHENTICATION_URL = '/users/authentication';
 
-  constructor(private httpService: HttpService) { }
+  constructor(private userConnectionEventService: UserConnectionEventService,private httpService: HttpService) { }
 
   login(username: string, password: string) {
     return this.httpService.post(this.AUTHENTICATION_URL, {username: username, password: password})
     .pipe(map(user => {
       if (user && user.token) {
         localStorage.setItem('currentUser', JSON.stringify(user));
+        this.userConnectionEventService.setUserConnectivity(true);
+
       }
       return user;
     }));
@@ -25,6 +28,7 @@ export class AuthenticationService implements AuthenticationServiceInterface {
 
   logout() {
     localStorage.removeItem('currentUser');
+    this.userConnectionEventService.setUserConnectivity(false);
   }
 
 }

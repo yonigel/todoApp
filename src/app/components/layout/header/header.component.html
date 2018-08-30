@@ -28,10 +28,16 @@
           Add category 
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item active" *ngIf="!isUserConnected">
         <a class="nav-link" routerLink="/login" routerLinkActive="active">
           <i class="fa fa-user-circle"></i>
           Sign in
+        </a>
+      </li>
+      <li class="nav-item active" *ngIf="isUserConnected">
+        <a class="nav-link" href="#" (click)="logOut()">
+          <i class="fa fa-user-circle"></i>
+          Sign out
         </a>
       </li>
     </ul>

@@ -6,18 +6,17 @@ import { UserService } from "../services/userService/user.service";
 @Injectable()
 export class AuthGuard implements CanActivate {
 
+    private readonly LOGIN_PATH = '/login';
+
     constructor(private userService: UserService, private router: Router) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-        var result: boolean
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean{
         if (this.userService.isUserLoggedIn()) {
-            result = true
+            return true;
         }
         else {
-            result = false
-            this.router.navigate(['/login'], {queryParams: {returnedUrl: state.url}})
+            this.router.navigate([this.LOGIN_PATH], {queryParams: {returnedUrl: state.url}})
+            return false;
         }
-        result = this.userService.isUserLoggedIn()
-        return result
     }
 }

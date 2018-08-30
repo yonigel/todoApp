@@ -8,8 +8,6 @@ export class UserService {
   constructor() { }
 
   isUserLoggedIn(): boolean {
-    var result: boolean
-    result = false
-    return result
+    return localStorage.getItem('currentUser') ? true : false;
   }
 }

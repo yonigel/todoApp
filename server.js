@@ -25,7 +25,17 @@ app.use(express.static(__dirname + '/dist/todoApp'));
 
 app.get('/', function(req,res) {
     
-res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
+    res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
+});
+app.get('/login', function(req,res) {
+    
+    res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
+});
+
+
+app.get('/todos', function(req,res) {
+    
+    res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
 });
 
 app.use('/users', userRoute)

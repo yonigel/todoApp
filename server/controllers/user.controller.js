@@ -1,52 +1,52 @@
 const User = require('../models/user.model')
+const jwt = require('jsonwebtoken');
+const sercret = "yonigel"
 
-exports.test = function(req, res) {
-    res.send('test works fine')
+module.exports = {
+    createUser,
+    getSingleUser,
+    updateUser,
+    deleteUser,
+    authentication,
+    getAllUsers
 }
 
-exports.createUser = function(req, res) {
+async function getAllUsers(req, res) {
+    const users = await User.find()
+    res.send(users)
+}
+
+async function createUser(req, res) {
     var user = new User({
         username: req.body.username,
         password: req.body.password
     })
-
-    user.save(function(err) {
-        if(err) {
-            return next(err)
-        }
-        res.send(`user: [${user.username}] created`)
-    })
+    var savedUser = await user.save()
+    res.send(`user: [${user.username}] created`)
 }
 
-exports.getSingleUser = function(req, res) {
-    User.findById(req.params.id, function(err, user) {
-        if(err) {
-            return next(err)
-        }
-        else {
-            res.send(user)
-        }
-    })
+async function getSingleUser(req, res) {
+    var user = await User.findById(req.params.id)
+    res.send(user)
 }
 
-exports.updateUser = function(req, res) {
-    User.findByIdAndUpdate(req.params.id, {$set: req.body}, function(err, user) {
-        if(err) {
-            return next(err)
-        }
-        else {
-            res.send('user updated')
-        }
-    })
+async function updateUser(req, res) {
+    await User.findByIdAndUpdate(req.params.id, {$set: req.body})
+    res.send('user updated')
 }
 
-exports.deleteUser = function(req, res) {
-    User.findByIdAndRemove(req.params.id, function(err) {
-        if(err) {
-            return next(err)
-        }
-        else {
-            res.send('user deleted')
-        }
-    })
+async function deleteUser(req, res) {
+    await User.findByIdAndRemove(req.params.id)
+    res.send('user deleted')
+}
+
+async function authentication(req, res) {
+    console.log(req.body)
+    const user = await User.findOne({username: req.body.username, password: req.body.password})
+    const token = jwt.sign({sub: user._id}, sercret)
+    var returnedUser = {
+        user,
+        token
+    }
+    res.send(returnedUser)
 }

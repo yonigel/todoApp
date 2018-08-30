@@ -11,6 +11,11 @@ export class HttpService implements HttpServiceInterface{
   constructor(private http: HttpClient) { }
 
   get(url: string): Observable<any> {
-    return this.http.get('assets/todoListData.json')
+    return this.http.get(url)
   }
+
+  post(url: string, body: Object = {}): Observable<any> {
+    return this.http.post(url, body)
+  }
+  
 }

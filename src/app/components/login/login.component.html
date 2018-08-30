@@ -6,17 +6,17 @@
             <h5 class="card-title">Login</h5>
             <p class="card-text">Please enter username and password.</p>
             <div class="form-group">
-              <input type="text" formControlName="username" class="form-control" [ngClass]="{'invalidInput':loginFormSubmitted && f.username.errors}" placeholder="username" id="username" required>
-              <div *ngIf="loginFormSubmitted && f.username.errors">
-                  <div *ngIf="f.username.errors.required">
+              <input type="text" formControlName="username" class="form-control" [ngClass]="{'invalidInput':loginFormSubmitted && loginFormControls.username.errors}" placeholder="username" id="username" required>
+              <div *ngIf="loginFormSubmitted && loginFormControls.username.errors">
+                  <div *ngIf="loginFormControls.username.errors.required">
                     <span class="badge badge-danger">Username is required</span>
                   </div>
               </div>
             </div>
             <div class="form-group">
-              <input type="password" formControlName="password" class="form-control" placeholder="password" id="password" [ngClass]="{'invalidInput':loginFormSubmitted && f.password.errors}">
-              <div *ngIf="loginFormSubmitted && f.password.errors">
-                <div *ngIf="f.password.errors.required">
+              <input type="password" formControlName="password" class="form-control" placeholder="password" id="password" [ngClass]="{'invalidInput':loginFormSubmitted && loginFormControls.password.errors}">
+              <div *ngIf="loginFormSubmitted && loginFormControls.password.errors">
+                <div *ngIf="loginFormControls.password.errors.required">
                   <span class="badge badge-danger">Password is required</span>
                 </div>
               </div>

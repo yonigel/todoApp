@@ -3,11 +3,13 @@ const router = express.Router();
 
 const userController = require('../controllers/user.controller')
 
-router.get('/test', userController.test)
+router.get('/:id', userController.getSingleUser)
+
+router.get('/', userController.getAllUsers)
 
 router.post('/', userController.createUser)
 
-router.get('/:id', userController.getSingleUser)
+router.post('/authentication', userController.authentication)
 
 router.put('/:id', userController.updateUser)
 

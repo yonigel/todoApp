@@ -34,6 +34,12 @@
           Sign in
         </a>
       </li>
+      <li class="nav-item active" *ngIf="!isUserConnected">
+        <a class="nav-link" routerLink="/register" routerLinkActive="active">
+          <i class="fa fa-user-circle"></i>
+          register
+        </a>
+      </li>
       <li class="nav-item active" *ngIf="isUserConnected">
         <a class="nav-link" href="#" (click)="logOut()">
           <i class="fa fa-user-circle"></i>

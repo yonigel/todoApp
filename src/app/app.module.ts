@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './components/register/register.component';
+import { UserAlreadyConnectedGuard } from './guards/userAlreadyConnected.guard';
 
 
 const appRoutes: Routes = [
@@ -23,7 +25,8 @@ const appRoutes: Routes = [
     component: MainTodoComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent, canActivate: [UserAlreadyConnectedGuard]},
+  { path: 'register', component: RegisterComponent},
   { path: '',
     redirectTo: '/todos',
     pathMatch: 'full'
@@ -39,7 +42,8 @@ const appRoutes: Routes = [
     AddTodoComponent,
     EditTodoComponent,
     DeleteTodoComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -53,7 +57,8 @@ const appRoutes: Routes = [
     )
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    UserAlreadyConnectedGuard
   ],
   bootstrap: [AppComponent]
 })

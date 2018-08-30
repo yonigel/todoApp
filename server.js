@@ -31,6 +31,10 @@ app.get('/login', function(req,res) {
     
     res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
 });
+app.get('/register', function(req,res) {
+    
+    res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
+});
 
 
 app.get('/todos', function(req,res) {

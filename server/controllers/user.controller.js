@@ -1,6 +1,7 @@
-const User = require('../models/user.model')
+const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
-const sercret = "yonigel"
+const bcrypt = require('bcrypt');
+const sercret = "yonigel";
 
 module.exports = {
     createUser,
@@ -12,46 +13,61 @@ module.exports = {
 }
 
 async function getAllUsers(req, res) {
-    let users = await User.find()
-    res.send(users)
+    let users = await User.find().select('-password');
+    res.send(users);
 }
 
 async function createUser(req, res) {
 
     if(await User.findOne({username: req.body.username})) {
-        throw `username ${req.body.username} already exists`;
+        res.send({
+            status: 'error',
+            message: 'user already exists'
+        })
     }
 
     let user = new User({
         username: req.body.username,
-        password: req.body.password
+        password: bcrypt.hashSync(req.body.password, 10) 
     })
-    let savedUser = await user.save()
-    res.send(`user: [${user.username}] created`)
+    let savedUser = await user.save();
+    res.send(`user: [${user.username}] created`);
 }
 
 async function getSingleUser(req, res) {
-    let user = await User.findById(req.params.id)
-    res.send(user)
+    let user = await User.findById(req.params.id).select('-password');
+    res.send(user);
 }
 
 async function updateUser(req, res) {
-    await User.findByIdAndUpdate(req.params.id, {$set: req.body})
-    res.send('user updated')
+    await User.findByIdAndUpdate(req.params.id, {$set: req.body});
+    res.send('user updated');
 }
 
 async function deleteUser(req, res) {
-    await User.findByIdAndRemove(req.params.id)
-    res.send('user deleted')
+    await User.findByIdAndRemove(req.params.id);
+    res.send('user deleted');
 }
 
 async function authentication(req, res) {
-    console.log(req.body)
-    const user = await User.findOne({username: req.body.username, password: req.body.password})
-    const token = jwt.sign({sub: user._id}, sercret)
-    let returnedUser = {
-        user,
-        token
+    console.log(req.body);
+
+    let user = await User.findOne({username: req.body.username});
+    if(user && bcrypt.compareSync(req.body.password, user.password)) {
+        const token = jwt.sign({sub: user._id}, sercret);
+        let returnedUser = {
+            user,
+            token
+        }
+        res.send(returnedUser);
     }
-    res.send(returnedUser)
+    else {
+        res.send({
+            status: 'error',
+            message: 'authentication failed'
+        })
+    }
+
+    // const user = await User.findOne({username: req.body.username, password: req.body.password});
+    
 }

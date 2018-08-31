@@ -12,21 +12,26 @@ module.exports = {
 }
 
 async function getAllUsers(req, res) {
-    const users = await User.find()
+    let users = await User.find()
     res.send(users)
 }
 
 async function createUser(req, res) {
-    var user = new User({
+
+    if(await User.findOne({username: req.body.username})) {
+        throw `username ${req.body.username} already exists`;
+    }
+
+    let user = new User({
         username: req.body.username,
         password: req.body.password
     })
-    var savedUser = await user.save()
+    let savedUser = await user.save()
     res.send(`user: [${user.username}] created`)
 }
 
 async function getSingleUser(req, res) {
-    var user = await User.findById(req.params.id)
+    let user = await User.findById(req.params.id)
     res.send(user)
 }
 
@@ -44,7 +49,7 @@ async function authentication(req, res) {
     console.log(req.body)
     const user = await User.findOne({username: req.body.username, password: req.body.password})
     const token = jwt.sign({sub: user._id}, sercret)
-    var returnedUser = {
+    let returnedUser = {
         user,
         token
     }

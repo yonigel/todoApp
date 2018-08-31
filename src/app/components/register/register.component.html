@@ -1,0 +1,25 @@
+<div class="registration">
+    <form [formGroup]="registerFormGroup" (ngSubmit)="onRegistrationSubmit()">
+        <div class="form-group">
+            <label for="username">username</label>
+            <input formControlName="username" type="username" class="form-control" id="username" placeholder="Enter username">
+            <small class="form-text text-muted">Please enter username with only english characters, 6 to 10 characters</small>
+            <span *ngIf="registrationFormGroupControls.username?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter username</span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="password" placeholder="Enter Password">
+            <small class="form-text text-muted">Please enter password with only english characters, numbers and special chars, 6 to 10 characters</small>
+            <span *ngIf="registrationFormGroupControls.password?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter password</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm password</label>
+            <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Enter Password again">
+            <small class="form-text text-muted">Please re-enter the password you entered</small>
+            <span *ngIf="registrationFormGroupControls.confirmPassword.errors?.confirmedPasswordMatch" class="badge badge-danger">passwords are not matched</span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>

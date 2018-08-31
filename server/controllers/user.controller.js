@@ -25,6 +25,7 @@ async function createUser(req, res) {
             message: 'user already exists'
         })
     }
+    return;
 
     let user = new User({
         username: req.body.username,

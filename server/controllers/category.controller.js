@@ -17,6 +17,7 @@ async function createCategory(req, res) {
             status: 'error',
             message: 'this category already exists by this user'
         })
+        return;
     }
 
     let newCategory = new Category({
@@ -47,7 +48,26 @@ async function getAllCategories(req, res) {
 }
 
 async function getAllCategoriesByUser(req, res) {
+    let user = req.body.user;
+    console.log(`checking for user ${user}`)
+    let categories = await Category.find();
+    console.log(categories.length)
+    categories = categories.filter(category => 
+        // category.permittedUsers.includes(req.body.user)
+        isUserPermitted(req.body.user, category.permittedUsers)
+    )
+    res.send(categories);
 
+}
+
+function isUserPermitted(selectedUser, users) {
+    let splittedUsers = users.split("\\,");
+    for (let user of splittedUsers) {
+        if(user == selectedUser) {
+            return true;
+        }
+    }
+    return false;
 }
 
 async function updateCategory(req, res) {

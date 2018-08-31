@@ -22,4 +22,5 @@
             <button type="submit" class="btn btn-primary">Register</button>
         </div>
     </form>
+    <span *ngIf="isUserAlreadyExists" class="badge badge-danger">this username is already exists</span>
 </div>

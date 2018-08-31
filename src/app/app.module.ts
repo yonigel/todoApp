@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterComponent } from './components/register/register.component';
 import { UserAlreadyConnectedGuard } from './guards/userAlreadyConnected.guard';
+import { RegistrationSucceededComponent } from './components/registration-succeeded/registration-succeeded.component';
 
 
 const appRoutes: Routes = [
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   },
   { path: 'login', component: LoginComponent, canActivate: [UserAlreadyConnectedGuard]},
   { path: 'register', component: RegisterComponent},
+  { path: 'registrationSucceede', component: RegistrationSucceededComponent},
   { path: '',
     redirectTo: '/todos',
     pathMatch: 'full'
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     EditTodoComponent,
     DeleteTodoComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RegistrationSucceededComponent
   ],
   imports: [
     BrowserAnimationsModule,

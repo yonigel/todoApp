@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidator } from '../../validators/password.validator'
+import { UserService } from '../../services/userService/user.service';
+import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,10 +18,12 @@ export class RegisterComponent implements OnInit {
   private readonly MAXIMUM_PASSWORD_LENGTH = 10;
   private registerFormGroup;
   private isSubmited: boolean;
+  private isUserAlreadyExists: boolean;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.isUserAlreadyExists = false;
     this.isSubmited = false;
     let usernameValidators = [Validators.required, Validators.minLength(this.MINIMUM_USERNAME_LENGTH), Validators.maxLength(this.MAXIMUM_USERNAME_LENGTH)]; 
     let passwordValidators = [Validators.required, Validators.minLength(this.MINIMUM_PASSWORD_LENGTH), Validators.maxLength(this.MAXIMUM_PASSWORD_LENGTH)];
@@ -39,7 +44,19 @@ export class RegisterComponent implements OnInit {
       return;
     }
     else {
-      console.log('no errors')
+      console.log(`username is ${this.registerFormGroup.controls.username.value}`);
+      let newUser: User = new User(this.registerFormGroup.controls.username.value, this.registerFormGroup.controls.password.value);
+      this.userService.register(newUser).subscribe(response=>{
+        console.log(`response for registration is ${JSON.stringify(response)}`)
+        if(response.status == 'error') {
+          this.isUserAlreadyExists = true;
+          return;
+        }
+        else {
+          this.router.navigate(['/registrationSucceede']);
+        }
+
+      })
     }
   }
 

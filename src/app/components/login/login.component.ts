@@ -12,10 +12,12 @@ export class LoginComponent implements OnInit {
 
   private loginForm: FormGroup
   private loginFormSubmitted: boolean
+  private userAuthenticationFailed: boolean
 
   constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.userAuthenticationFailed = false;
     this.loginFormSubmitted = false;
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]
@@ -28,6 +30,10 @@ export class LoginComponent implements OnInit {
     this.loginFormSubmitted = true;
     this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
     .subscribe(data => {
+      if(data.status == 'error') {
+        this.userAuthenticationFailed = true;
+        return;
+      }
       this.router.navigate(['/']);
     })
 

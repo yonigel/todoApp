@@ -18,7 +18,7 @@ async function getAllUsers(req, res) {
 }
 
 async function createUser(req, res) {
-
+    console.log(`creating user`)
     if(await User.findOne({username: req.body.username})) {
         res.send({
             status: 'error',
@@ -31,7 +31,9 @@ async function createUser(req, res) {
         password: bcrypt.hashSync(req.body.password, 10) 
     })
     let savedUser = await user.save();
-    res.send(`user: [${user.username}] created`);
+    res.send({
+        status: 'succeeded'
+    });
 }
 
 async function getSingleUser(req, res) {
@@ -51,7 +53,6 @@ async function deleteUser(req, res) {
 
 async function authentication(req, res) {
     console.log(req.body);
-
     let user = await User.findOne({username: req.body.username});
     if(user && bcrypt.compareSync(req.body.password, user.password)) {
         const token = jwt.sign({sub: user._id}, sercret);
@@ -67,7 +68,4 @@ async function authentication(req, res) {
             message: 'authentication failed'
         })
     }
-
-    // const user = await User.findOne({username: req.body.username, password: req.body.password});
-    
 }

@@ -14,7 +14,7 @@ module.exports = {
 }
 
 async function getUserByUsername(req, res) {
-    let user = await User.findOne({username: req.body.username});
+    let user = await User.findOne({username: req.body.username}).select('-password');
     console.log(user)
     if(user) {
         res.send(user);

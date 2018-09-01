@@ -22,7 +22,7 @@
         </div>
       </li>
       <li class="nav-item active" *ngIf="isUserConnected">
-        <a class="nav-link" href="#">
+        <a class="nav-link" [routerLink]="['/addCategory']">
           <i class="fa fa-plus-square-o"></i>
           Add category 
         </a>

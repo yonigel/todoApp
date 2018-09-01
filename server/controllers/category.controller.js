@@ -24,14 +24,16 @@ async function getCategoryById(req, res) {
 }
 
 async function createCategory(req, res) {
+    console.log('createCategory()');
     if(await Category.findOne({name: req.body.name, createdBy: req.body.createdBy})) {
         console.log(`the user ${req.body.name} already has category named ${req.body.createdBy}`);
         res.send({
             status: 'error',    
             message: 'this category already exists by this user'
-        })
+        });
         return;
     }
+    console.log(req.body);
     let newCategory = new Category({
         name: req.body.name,
         description: req.body.description,
@@ -39,6 +41,7 @@ async function createCategory(req, res) {
         createdBy: req.body.createdBy
     });
     await newCategory.save();
+    console.log('saved')
     res.send({
         status: 'succeeded'
     })
@@ -46,6 +49,9 @@ async function createCategory(req, res) {
 
 async function deleteCategory(req, res) {
     await Category.findByIdAndRemove((req.params.id));
+    res.send({
+        status: 'succeeded'
+    })
 }
 
 async function getAllCategories(req, res) {

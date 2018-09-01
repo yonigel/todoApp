@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../services/authenticationService/a
 import { UserConnectionEventService } from '../../../services/events/user-connection-event.service';
 import { CategoryService } from '../../../services/categoryService/category.service';
 import { Category } from '../../../models/category';
+import { CategoriesEventsService } from '../../../services/events/categories-events.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
   private isUserConnected: boolean;
   private categoryList: Category[];
 
-  constructor(private categoryService: CategoryService,private userConnectiviytEventService: UserConnectionEventService,private userService: UserService, private authService: AuthenticationService) { }
+  constructor(private categoryService: CategoryService,private userConnectiviytEventService: UserConnectionEventService,private userService: UserService, private authService: AuthenticationService, private categoriesEventsService: CategoriesEventsService) { }
 
   ngOnInit() {
     this.isUserConnected = this.userService.isUserLoggedIn();
@@ -24,6 +25,10 @@ export class HeaderComponent implements OnInit {
     this.getUserCategories();
     this.userConnectiviytEventService.userConnectionChanged.subscribe(isConnected => {
       this.isUserConnected = isConnected;
+      this.getUserCategories();
+    });
+    this.categoriesEventsService.categoryListChanged.subscribe(()=>{
+      
       this.getUserCategories();
     })
   }
@@ -37,6 +42,7 @@ export class HeaderComponent implements OnInit {
       return;
     }
     this.categoryService.getCategoriesByUser().subscribe(response=>{
+      this.categoryList = [];
       for (let category of response) {
         let permittedUsers: string[] = [];
         if(response.permittedUsers != undefined)

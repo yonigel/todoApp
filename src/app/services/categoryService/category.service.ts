@@ -24,9 +24,6 @@ export class CategoryService implements CategoryServiceInterface {
     return this.httpService.get(`${this.CATEGORY_API_PATH}/${id}`);
   }
 
-  addCategory(category: Category): Observable<any> {
-    return this.httpService.post(this.CATEGORY_API_PATH, {category});
-  }
   addPermittedUser(user: string, category: Category): Observable<any> {
     return this.httpService.put(`${this.CATEGORY_API_PATH}/addPermittedUser/${category.id}`, {username: user});
   }
@@ -34,5 +31,12 @@ export class CategoryService implements CategoryServiceInterface {
     return this.httpService.put(`${this.CATEGORY_API_PATH}/removePermittedUser/${category.id}`, {username: username});
   }
 
+  createCategory(category: Category): Observable<any> {
+    let currentUser = this.userService.getConnectedUsername();
+    return this.httpService.post(`${this.CATEGORY_API_PATH}/`, {name: category.name, description: category.description, createdBy: currentUser, permittedUsers: currentUser});
+  }
 
+  deleteCategory(category: Category): Observable<any> {
+    return this.httpService.delete(`${this.CATEGORY_API_PATH}/${category.id}`);
+  }
 }

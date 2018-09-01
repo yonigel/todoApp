@@ -1,26 +1,29 @@
 <div class="card" *ngIf="selectedCategory">
-    <div class="card-header">
-      Category {{selectedCategory.name}}
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">{{selectedCategory.name}}</h5>
-      <p class="card-text"><b>Description:</b> {{selectedCategory.description}}</p>
-      <p class="card-text"><b>Permitted users:</b>
-        <span *ngFor="let permittedUser of selectedCategory.permittedUsers" class="badge badge-success" style="margin-right: 0.5%; margin-left: 0.5%;">
-          {{permittedUser}}
-          <i *ngIf="permittedUser != selectedCategory.createdBy" class="fa fa-times-circle" style="cursor: pointer; color: white;" (click)="removePermittedUser(permittedUser)"></i>
-        </span>
-      </p>
-        <form [formGroup]="addPermittedUserFormGroup" (ngSubmit)="addUser()">
-          <div class="form-group">
-            <label for="addPermittedUser">Add permitted user</label>
-            <input formControlName="username" type="text" class="form-control" id="addPermittedUser" placeholder="enter username">
-            <small id="addPermittedUserHelp" class="form-text text-muted">Please enter username you wish to add to your category.</small>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn">Add user</button>
-          </div>
-        </form>
-        <span *ngIf="addedUserError" class="badge badge-danger">{{addedUserErrorMessage}}</span>
-    </div>
+  <div class="card-header">
+    Category {{selectedCategory.name}}
+    <button type="button" data-toggle="modal" data-target="#deleteCategoryModal" class="btn btn-danger">Delete category</button>
   </div>
+  <div class="card-body">
+    <h5 class="card-title">{{selectedCategory.name}}</h5>
+    <p class="card-text"><b>Description:</b> {{selectedCategory.description}}</p>
+    <p class="card-text"><b>Permitted users:</b>
+      <span *ngFor="let permittedUser of selectedCategory.permittedUsers" class="badge badge-success" style="margin-right: 0.5%; margin-left: 0.5%;">
+        {{permittedUser}}
+        <i *ngIf="permittedUser != selectedCategory.createdBy" class="fa fa-times-circle" style="cursor: pointer; color: white;" (click)="removePermittedUser(permittedUser)"></i>
+      </span>
+    </p>
+      <form [formGroup]="addPermittedUserFormGroup" (ngSubmit)="addUser()">
+        <div class="form-group">
+          <label for="addPermittedUser">Add permitted user</label>
+          <input formControlName="username" type="text" class="form-control" id="addPermittedUser" placeholder="enter username">
+          <small id="addPermittedUserHelp" class="form-text text-muted">Please enter username you wish to add to your category.</small>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn">Add user</button>
+        </div>
+      </form>
+      <span *ngIf="addedUserError" class="badge badge-danger">{{addedUserErrorMessage}}</span>
+  </div>
+</div>
+
+<app-delete-category-modal *ngIf="selectedCategory" [selectedCategoryId]="selectedCategory.id"></app-delete-category-modal>

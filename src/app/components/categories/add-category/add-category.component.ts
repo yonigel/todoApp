@@ -29,13 +29,17 @@ export class AddCategoryComponent implements OnInit {
   }
 
   private onCategoryAddSubmit() {
+    if (this.addCategoryFormGroup.controls.name.status == 'INVALID') {
+      this.categoryAddedError = true;
+      this.categoryAddedErrorMessage = `category name can't be empty`;
+      return;
+    }
     let createdBy = this.userService.getConnectedUsername();
     let category = new Category('', this.addCategoryFormGroup.controls.name.value, this.addCategoryFormGroup.controls.description.value, [], createdBy); 
     this.categoryService.createCategory(category).subscribe(response=>{
       if(response.status == 'succeeded') {
         this.categoryAdded = true;
         this.categoriesEventsService.setCategoryListChanghed();
-
       }
       else if(response.status == 'succeeded') {
         this.categoryAdded = false;

@@ -1,3 +1,7 @@
+<div *ngIf="categoryAdded" class="alert alert-success" role="alert">
+  New category was added!
+</div>
+
 <form [formGroup]="addCategoryFormGroup" (ngSubmit)="onCategoryAddSubmit()">
   <div class="form-group">
     <label for="categoryName">Category name</label>

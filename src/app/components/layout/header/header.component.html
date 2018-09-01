@@ -18,8 +18,7 @@
           Select category
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a *ngFor="let category of categoryList" class="dropdown-item" [routerLink]="['/categoryPreview']" [queryParams]="{categoyId: category.id}">{{category.name}}</a>
         </div>
       </li>
       <li class="nav-item active" *ngIf="isUserConnected">

@@ -18,6 +18,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { RegisterComponent } from './components/register/register.component';
 import { UserAlreadyConnectedGuard } from './guards/userAlreadyConnected.guard';
 import { RegistrationSucceededComponent } from './components/registration-succeeded/registration-succeeded.component';
+import { CategoryPreviewComponent } from './components/categories/category-preview/category-preview.component';
+import { AddCategoryComponent } from './components/categories/add-category/add-category.component';
 
 
 const appRoutes: Routes = [
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [UserAlreadyConnectedGuard]},
   { path: 'register', component: RegisterComponent},
   { path: 'registrationSucceede', component: RegistrationSucceededComponent},
+  { path: 'categoryPreview', component: CategoryPreviewComponent },
   { path: '',
     redirectTo: '/todos',
     pathMatch: 'full'
@@ -46,7 +49,9 @@ const appRoutes: Routes = [
     DeleteTodoComponent,
     LoginComponent,
     RegisterComponent,
-    RegistrationSucceededComponent
+    RegistrationSucceededComponent,
+    CategoryPreviewComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserAnimationsModule,

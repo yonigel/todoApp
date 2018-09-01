@@ -1,8 +1,16 @@
 export class Category {
 
-    id: number
-    name: string
-    colorCode: string
+    id: string;
+    name: string;
+    description: string;
+    permittedUsers: string[];
+    createdBy: string;
 
-    constructor(){}
+    constructor(id: string, name: string, description: string='', permittedUsers: string[], createdBy: string){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.permittedUsers = permittedUsers;
+        this.createdBy = createdBy;
+    }
 }

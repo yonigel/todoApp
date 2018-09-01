@@ -28,5 +28,18 @@ export class UserService implements UserServiceInterface{
   register(user: User): Observable<any> {
     return this.httpService.post(this.USER_API_PATH, {username: user.username, password: user.password});
   }
-  
+
+  getConnectedUsername(): string {
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+    return user.user.username;
+  }
+
+  getSingleUserById(userId: string): Observable<any> {
+    return this.httpService.get(`${this.USER_API_PATH}/${userId}`);
+  }  
+
+  getSingleUserByUsername(username: string): Observable<any> {
+    return this.httpService.post(`${this.USER_API_PATH}/getUserByUsername`, {username: username});
+  }
+
 }

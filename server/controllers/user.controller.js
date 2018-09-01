@@ -9,7 +9,22 @@ module.exports = {
     updateUser,
     deleteUser,
     authentication,
-    getAllUsers
+    getAllUsers,
+    getUserByUsername
+}
+
+async function getUserByUsername(req, res) {
+    let user = await User.findOne({username: req.body.username});
+    console.log(user)
+    if(user) {
+        res.send(user);
+    }
+    else {
+        res.send({
+            status: 'error',
+            message: 'user not exists'
+        })
+    }
 }
 
 async function getAllUsers(req, res) {

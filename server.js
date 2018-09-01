@@ -47,6 +47,12 @@ app.get('/todos', function(req,res) {
     res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
 });
 
+app.get('/categoryPreview', function(req,res) {
+    
+    res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
+});
+
+
 app.use('/users', userRoute);
 app.use('/categories', categoryRoute);
 

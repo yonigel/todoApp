@@ -6,11 +6,24 @@ module.exports = {
     getAllCategories,
     getAllCategoriesByUser,
     addPermittedUser,
-    removePermittedUser
+    removePermittedUser,
+    getCategoryById
+}
+
+async function getCategoryById(req, res) {
+    let category = await Category.findById(req.params.id);
+    if(!category) {
+        res.send({
+            status: 'error',
+            message: 'category not fount'
+        });
+    }
+    else {
+        res.send(category);
+    }
 }
 
 async function createCategory(req, res) {
-
     if(await Category.findOne({name: req.body.name, createdBy: req.body.createdBy})) {
         console.log(`the user ${req.body.name} already has category named ${req.body.createdBy}`);
         res.send({
@@ -19,16 +32,13 @@ async function createCategory(req, res) {
         })
         return;
     }
-
     let newCategory = new Category({
         name: req.body.name,
         description: req.body.description,
         permittedUsers: req.body.createdBy,
         createdBy: req.body.createdBy
     });
-
     await newCategory.save();
-
     res.send({
         status: 'succeeded'
     })
@@ -63,9 +73,7 @@ async function addPermittedUser(req, res) {
     }
     selectedCategory.permittedUsers += `, ${req.body.username}`;
     selectedCategory.save();
-    res.send({
-        status: 'succeeded'
-    });
+    res.send(selectedCategory);
 }
 
 async function removePermittedUser(req, res) {
@@ -85,9 +93,7 @@ async function removePermittedUser(req, res) {
     selectedCategory.permittedUsers = newPermittedUsers;
     selectedCategory.save();
 
-    res.send({
-        status: 'succeeded'
-    });
+    res.send(selectedCategory);
 }
 
 function isUserPermitted(selectedUser, users) {

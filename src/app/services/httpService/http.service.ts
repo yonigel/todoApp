@@ -18,4 +18,11 @@ export class HttpService implements HttpServiceInterface{
     return this.http.post(url, body);
   }
   
+  put(url: string, body: Object = {}): Observable<any> {
+    return this.http.put(url, body);
+  }
+
+  delete(url: string, body: Object = {}): Observable<any> {
+    return this.http.delete(url, body);
+  }
 }

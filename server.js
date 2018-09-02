@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 8080;
 
 let userRoute = require('./server/routes/user.route')
 let categoryRoute = require('./server/routes/category.route')
+let todoRoute = require('./server/routes/todo.route')
 
 let mongoDB = process.env.MONGODB_URI || DB_URL
 
@@ -61,6 +62,7 @@ app.get('/addCategory', function(req,res) {
 
 app.use('/users', userRoute);
 app.use('/categories', categoryRoute);
+app.use('/todoList', todoRoute);
 
 app.listen(PORT, function() {
     console.log(`listening to port ${PORT}`)

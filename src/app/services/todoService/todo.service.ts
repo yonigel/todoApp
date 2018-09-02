@@ -8,21 +8,29 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TodoService implements TodoServiceInterface {
-  
-  private readonly BASE_TODO_LIST_URL = 'assets/todoListData.json'
+
+  private readonly TODO_API_PATH: string = '/todoList';
 
   constructor(private httpService: HttpService) { }
 
-  getTodos(): Observable<any> {
-    return this.httpService.get(this.BASE_TODO_LIST_URL)
+  getTodosByCategory(categoryId: string): Observable<any> {
+    return this.httpService.post(`${this.TODO_API_PATH}/getTodosByCategory`, {categoryId: categoryId});
   }
-  getSingleTodo(todoID: number): Observable<any> {
-    throw new Error("Method not implemented.");
+  getSingleTodo(todoID: string): Observable<any> {
+    return this.httpService.get(`${this.TODO_API_PATH}/${todoID}`);
   }
-  deleteTodo(todoID: number) {
-    throw new Error("Method not implemented.");
+  deleteTodoById(todoID: string): Observable<any> {
+    return this.httpService.delete(`${this.TODO_API_PATH}/deleteTodoById/${todoID}`);
   }
-  addTodo() {
-    throw new Error("Method not implemented.");
+
+  deleteTodoByCategory(categoryId: string): Observable<any> {
+    return this.httpService.delete(`${this.TODO_API_PATH}/deleteTodosByCategory/${categoryId}`);
   }
+  createTodo(todo: Todo): Observable<any> {
+    return this.httpService.post(this.TODO_API_PATH, {title: todo.title, description: todo.description, createdBy: todo.creator, categoryId: todo.category});
+  }
+  updateTodo(todoId: string, newTodo: Todo): Observable<any> {
+    return this.httpService.put(`${this.TODO_API_PATH}/${todoId}`, {title: newTodo.title, description: newTodo.description, isDone: newTodo.state});
+  }
+
 }

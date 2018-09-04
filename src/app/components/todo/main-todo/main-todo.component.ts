@@ -3,6 +3,8 @@ import { HttpService } from '../../../services/httpService/http.service';
 import { Todo } from '../../../models/todo';
 import { TodoService } from '../../../services/todoService/todo.service';
 import { Observable } from 'rxjs';
+import { CategoryService } from '../../../services/categoryService/category.service';
+import { Category } from '../../../models/category';
 
 @Component({
   selector: 'app-main-todo',
@@ -11,12 +13,18 @@ import { Observable } from 'rxjs';
 })
 export class MainTodoComponent implements OnInit {
 
-  private todoList: Observable<any>
-
-  constructor(private todoService: TodoService) { }
+  private categoryList: Observable<any>;
+  private selectedCategory: Category;
+  
+  constructor(private todoService: TodoService, private categoryService: CategoryService) { }
 
   ngOnInit() {
-    this.todoList = this.todoService.getTodos()
+    this.selectedCategory = new Category('', '', '', [], '');
+    this.categoryList = this.categoryService.getCategoriesByUser();
+  }
+
+  private onCategorySelect(category: Category) {
+    this.selectedCategory = category;
   }
 
 }

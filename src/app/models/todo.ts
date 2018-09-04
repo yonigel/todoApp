@@ -5,13 +5,23 @@ import { Category } from "./category";
 
 export class Todo {
 
-    id: number
+    id: string
     title: string
     description: string
     priority: TodoPriority
     state: TodoState
     creator: User
-    category: Category
+    categoryId: string
+    isDone: boolean;
+    createdBy: string;
 
-    constructor(){}
+    constructor(id: string, title: string, description: string, isDone: boolean, categoryId: string, createdBy: string){
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.isDone = isDone;
+        this.categoryId = categoryId;
+        this.createdBy = createdBy;
+
+    }
 }

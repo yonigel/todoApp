@@ -18,7 +18,7 @@
           Select category
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a *ngFor="let category of categoryList" class="dropdown-item" [routerLink]="['/categoryPreview']" [queryParams]="{categoyId: category.id}">{{category.name}}</a>
+          <a *ngFor="let category of observableCategoryList | async" class="dropdown-item" [routerLink]="['/categoryPreview']" [queryParams]="{categoyId: category._id}">{{category.name}}</a>
         </div>
       </li>
       <li class="nav-item active" *ngIf="isUserConnected">

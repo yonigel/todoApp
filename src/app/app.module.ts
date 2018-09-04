@@ -21,6 +21,7 @@ import { RegistrationSucceededComponent } from './components/registration-succee
 import { CategoryPreviewComponent } from './components/categories/category-preview/category-preview.component';
 import { AddCategoryComponent } from './components/categories/add-category/add-category.component';
 import { DeleteCategoryModalComponent } from './components/categories/delete-category-modal/delete-category-modal.component';
+import { AddTodoModalComponent } from './components/todo/add-todo-modal/add-todo-modal.component';
 
 
 const appRoutes: Routes = [
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     RegistrationSucceededComponent,
     CategoryPreviewComponent,
     AddCategoryComponent,
-    DeleteCategoryModalComponent
+    DeleteCategoryModalComponent,
+    AddTodoModalComponent
   ],
   imports: [
     BrowserAnimationsModule,

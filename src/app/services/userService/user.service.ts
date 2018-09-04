@@ -31,7 +31,8 @@ export class UserService implements UserServiceInterface{
 
   getConnectedUsername(): string {
     let user = JSON.parse(localStorage.getItem('currentUser'));
-    return user.user.username;
+    if(user != null)
+      return user.user.username;
   }
 
   getSingleUserById(userId: string): Observable<any> {

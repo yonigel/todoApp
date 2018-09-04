@@ -10,6 +10,7 @@ export class UserConnectionEventService {
   userConnectionChanged = this.setUserConnectivitySource.asObservable();
 
   setUserConnectivity(isConnected: boolean) {
+    console.log(`user connected`);
     this.setUserConnectivitySource.next(isConnected);
   }
 }

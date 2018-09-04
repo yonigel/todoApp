@@ -24,8 +24,10 @@ export class HeaderComponent implements OnInit {
     this.observableCategoryList = this.categoryService.getCategoriesByUser();
     this.isUserConnected = this.userService.isUserLoggedIn();
     this.userConnectiviytEventService.userConnectionChanged.subscribe(isConnected => {
+      console.log(`user connection is ${isConnected}`);
       this.isUserConnected = isConnected;
       this.observableCategoryList = this.categoryService.getCategoriesByUser();
+      
     });
     this.categoriesEventsService.categoryListChanged.subscribe(()=>{
       this.observableCategoryList = this.categoryService.getCategoriesByUser();

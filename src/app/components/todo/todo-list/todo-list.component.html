@@ -1,6 +1,8 @@
 <ul class="list-group" *ngIf="category">
   <li class="list-group-item disabled">{{category.name}}</li>
-  <li *ngFor="let todo of todos | async" class="list-group-item">{{todo.title}}</li>
+  <li *ngFor="let todo of todos | async" class="list-group-item">
+      {{todo.title}}
+  </li>
   <li class="list-group-item disabled">
     <button type="button" (click)="changeSelectedCategory()" class="btn btn-primary" data-toggle="modal" data-target="#addTodoModal">
       Add todo

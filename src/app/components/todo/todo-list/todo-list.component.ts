@@ -32,6 +32,7 @@ export class TodoListComponent implements OnInit {
   private getCategoryParams() {
     this.categoryService.getCategoryById(this.categoryId).subscribe(category => {
       let permittedUsers: string[] = category.permittedUsers.split(",");
+      console.log(category._id)
       this.category = new Category(category._id, category.name, category.description, permittedUsers, category.createdBy);
     })
   }

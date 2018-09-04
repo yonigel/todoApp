@@ -25,6 +25,7 @@ async function createTodo(req, res) {
     todo.description = req.body.description;
     todo.createdBy = req.body.createdBy;
     todo.categoryId = req.body.categoryId;
+    console.log(todo.categoryId)
     todo.isDone = false;
     todo.save();
     res.send(todo);

@@ -19,6 +19,7 @@ export class AuthenticationService implements AuthenticationServiceInterface {
     .pipe(map(user => {
       if (user && user.token) {
         localStorage.setItem('currentUser', JSON.stringify(user));
+        console.log(`user connected`)
         this.userConnectionEventService.setUserConnectivity(true);
 
       }

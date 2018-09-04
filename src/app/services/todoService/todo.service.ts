@@ -27,7 +27,7 @@ export class TodoService implements TodoServiceInterface {
     return this.httpService.delete(`${this.TODO_API_PATH}/deleteTodosByCategory/${categoryId}`);
   }
   createTodo(todo: Todo): Observable<any> {
-    return this.httpService.post(this.TODO_API_PATH, {title: todo.title, description: todo.description, createdBy: todo.createdBy, categoryId: todo.id});
+    return this.httpService.post(this.TODO_API_PATH, {title: todo.title, description: todo.description, createdBy: todo.createdBy, categoryId: todo.categoryId});
   }
   updateTodo(todoId: string, newTodo: Todo): Observable<any> {
     return this.httpService.put(`${this.TODO_API_PATH}/${todoId}`, {title: newTodo.title, description: newTodo.description, isDone: newTodo.state});

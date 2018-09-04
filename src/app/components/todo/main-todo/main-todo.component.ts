@@ -25,6 +25,7 @@ export class MainTodoComponent implements OnInit {
 
   private onCategorySelect(category: Category) {
     this.selectedCategory = category;
+    console.log(category.id);
   }
 
 }

@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../../services/userService/user.service';
 import { Todo } from '../../../models/todo';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TodoEventsService } from '../../../services/events/todo-events.service';
 
 @Component({
   selector: 'app-add-todo-modal',
@@ -20,12 +21,13 @@ export class AddTodoModalComponent implements OnInit {
   categoryName: string;
 
   private createdBy: string;
-
   private addTodoFormGroup;
+  private todoAdded: boolean;
 
-  constructor(private router: Router, private todoService: TodoService, private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(private todoEventsService: TodoEventsService, private router: Router, private todoService: TodoService, private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit() {
+    this.todoAdded = false;
     this.addTodoFormGroup = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['']
@@ -36,7 +38,13 @@ export class AddTodoModalComponent implements OnInit {
   private onAddTodoSubmit() {
     let newTodo = new Todo('', this.addTodoFormGroup.controls.title.value, this.addTodoFormGroup.controls.title.value, false, this.categoryId, this.createdBy);
     this.todoService.createTodo(newTodo).subscribe(response=>{
+      this.todoEventsService.todoListChangedEvent();
+      this.todoAdded = true;
     });
+  }
+
+  private closeModal() {
+    this.ngOnInit();
   }
 
 }

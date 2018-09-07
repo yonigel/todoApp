@@ -1,0 +1,8 @@
+.doneTodo {
+    color: gray;
+    text-decoration: line-through;
+}
+
+.notDoneTodo {
+    color: black;
+}

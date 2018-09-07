@@ -33,10 +33,8 @@ async function createTodo(req, res) {
 
 async function updateTodo(req, res) {
     let todo = await Todo.findById(req.params.id);
-    todo.title = req.body.title;
-    todo.description = req.body.description;
-    todo.isDone = req.body.isDone;
-    todo.save();
+    await Todo.findByIdAndUpdate(req.params.id, {isDone: req.body.isDone})
+    todo = await Todo.findById(req.params.id);
     res.send(todo);
 }
 

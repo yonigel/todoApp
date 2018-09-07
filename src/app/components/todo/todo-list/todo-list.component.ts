@@ -21,21 +21,26 @@ export class TodoListComponent implements OnInit {
 
 
   private category: Category;
-  private todos;
+  private todoList: Todo[];
 
   constructor(private todoEventsService: TodoEventsService ,private categoryService: CategoryService, private todoService: TodoService) { }
 
   ngOnInit() {
+    this.todoList = [];
     this.getCategoryParams();
     this.getTodos();
-    this.todoEventsService.todoChangedOccures.subscribe(()=>{
-      this.getTodos();
-      console.log(`todo list changed`)
+    this.todoEventsService.todoAdedOccures.subscribe(newTodo => {
+      this.todoList.push(newTodo);
     })
   }
 
   private getTodos(): void {
-    this.todos = this.todoService.getTodosByCategory(this.categoryId);
+    this.todoList = [];
+    this.todoService.getTodosByCategory(this.categoryId).subscribe(todos=>{
+      for (let todo of todos) {
+        this.todoList.push(new Todo(todo._id, todo.title, todo.description, todo.isDone, todo.categoryId, todo.createdBy));
+      }
+    });
   }
 
   private getCategoryParams(): void {
@@ -50,17 +55,18 @@ export class TodoListComponent implements OnInit {
   }
 
   private setTodoState(id: string, isDone: boolean): void {
-
-    console.log(`setting todo ${id} to ${isDone}`)
     this.todoService.updateTodo(id, {isDone: !isDone}).subscribe(response=>{
-      console.log(`todo updates ${JSON.stringify(response)}`);
+      this.todoList = this.todoList.map(todo => {
+        todo.isDone = todo.id == id ? !isDone : todo.isDone;
+        return todo;
+      }); 
       this.todoEventsService.todoListChangedEvent();
     });
   }
    
   private deleteTodo(id: string): void {
     this.todoService.deleteTodoById(id).subscribe(response=>{
-      console.log(`deleting todo response is ${response}`);
+      this.todoList = this.todoList.filter(todo => todo.id != id);
       this.todoEventsService.todoListChangedEvent();
     })
   }

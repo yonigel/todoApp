@@ -39,6 +39,10 @@ export class AddTodoModalComponent implements OnInit {
     let newTodo = new Todo('', this.addTodoFormGroup.controls.title.value, this.addTodoFormGroup.controls.title.value, false, this.categoryId, this.createdBy);
     this.todoService.createTodo(newTodo).subscribe(response=>{
       this.todoEventsService.todoListChangedEvent();
+
+      let createdTodo = new Todo(response._id, response.title, response.description, response.isDone, response.categoryId, response.createdBy);
+      this.todoEventsService.todoAddedEvent(createdTodo);
+
       this.todoAdded = true;
     });
   }

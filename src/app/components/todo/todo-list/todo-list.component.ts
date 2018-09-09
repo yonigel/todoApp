@@ -19,6 +19,9 @@ export class TodoListComponent implements OnInit {
   @Output()
   selectedCategory = new EventEmitter<Category>();
 
+  @Output()
+  selectedTodo = new EventEmitter<Todo>();
+
 
   private category: Category;
   private todoList: Todo[];
@@ -30,7 +33,17 @@ export class TodoListComponent implements OnInit {
     this.getCategoryParams();
     this.getTodos();
     this.todoEventsService.todoAdedOccures.subscribe(newTodo => {
-      this.todoList.push(newTodo);
+      if(this.categoryId == newTodo.categoryId)
+        this.todoList.push(newTodo);
+    });
+    this.todoEventsService.selectedTodoDeletedOccures.subscribe((todoId) => {
+      this.todoList = this.todoList.filter(todo => todo.id != todoId);
+    });
+    this.todoEventsService.selectedTodoEditedOccures.subscribe(editedTodo => {
+      console.log(`fot event for ${editedTodo}`)
+      this.todoList = this.todoList.map((todo) => {
+        return todo.id == editedTodo.id ? editedTodo : todo;
+      })
     })
   }
 
@@ -54,6 +67,10 @@ export class TodoListComponent implements OnInit {
     this.selectedCategory.emit(this.category);
   }
 
+  private changeSelectedTodo(todo: Todo): void {
+    this.selectedTodo.emit(todo);
+  }
+
   private setTodoState(id: string, isDone: boolean): void {
     this.todoService.updateTodo(id, {isDone: !isDone}).subscribe(response=>{
       this.todoList = this.todoList.map(todo => {
@@ -64,12 +81,12 @@ export class TodoListComponent implements OnInit {
     });
   }
    
-  private deleteTodo(id: string): void {
-    this.todoService.deleteTodoById(id).subscribe(response=>{
-      this.todoList = this.todoList.filter(todo => todo.id != id);
-      this.todoEventsService.todoListChangedEvent();
-    })
-  }
+  // private deleteTodo(id: string): void {
+  //   this.todoService.deleteTodoById(id).subscribe(response=>{
+  //     this.todoList = this.todoList.filter(todo => todo.id != id);
+  //     this.todoEventsService.todoListChangedEvent();
+  //   })
+  // }
 
 
 }

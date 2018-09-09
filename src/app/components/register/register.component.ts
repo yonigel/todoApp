@@ -27,10 +27,12 @@ export class RegisterComponent implements OnInit {
     this.isSubmited = false;
     let usernameValidators = [Validators.required, Validators.minLength(this.MINIMUM_USERNAME_LENGTH), Validators.maxLength(this.MAXIMUM_USERNAME_LENGTH)]; 
     let passwordValidators = [Validators.required, Validators.minLength(this.MINIMUM_PASSWORD_LENGTH), Validators.maxLength(this.MAXIMUM_PASSWORD_LENGTH)];
+    let emailValidators = [Validators.required, Validators.email];
     this.registerFormGroup = this.formBuilder.group({
       username: ['', usernameValidators],
       password: ['', passwordValidators],
-      confirmPassword: ['', passwordValidators]
+      confirmPassword: ['', passwordValidators],
+      email: ['', emailValidators]
     }, {
       validator: PasswordValidator.confirmedPasswordMatch
     })
@@ -45,7 +47,7 @@ export class RegisterComponent implements OnInit {
     }
     else {
       console.log(`username is ${this.registerFormGroup.controls.username.value}`);
-      let newUser: User = new User(this.registerFormGroup.controls.username.value, this.registerFormGroup.controls.password.value);
+      let newUser: User = new User(this.registerFormGroup.controls.username.value, this.registerFormGroup.controls.password.value, this.registerFormGroup.controls.email.value);
       this.userService.register(newUser).subscribe(response=>{
         console.log(`response for registration is ${JSON.stringify(response)}`)
         if(response.status == 'error') {

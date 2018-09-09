@@ -26,7 +26,7 @@ export class UserService implements UserServiceInterface{
   }
 
   register(user: User): Observable<any> {
-    return this.httpService.post(this.USER_API_PATH, {username: user.username, password: user.password});
+    return this.httpService.post(this.USER_API_PATH, {username: user.username, password: user.password, email: user.email});
   }
 
   getConnectedUsername(): string {

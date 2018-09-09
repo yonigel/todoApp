@@ -33,7 +33,13 @@ async function createTodo(req, res) {
 
 async function updateTodo(req, res) {
     let todo = await Todo.findById(req.params.id);
-    await Todo.findByIdAndUpdate(req.params.id, {isDone: req.body.isDone})
+    let state = req.body.isDone == undefined ? todo.isDone : req.body.isDone;
+    let title = req.body.title == undefined ? todo.title : req.body.title;
+    let description = req.body.description == undefined ? todo.description : req.body.description;
+
+    console.log(`got title ${req.body.title}, got description ${req.body.description}`);
+
+    await Todo.findByIdAndUpdate(req.params.id, {isDone: state, title: title, description: description})
     todo = await Todo.findById(req.params.id);
     res.send(todo);
 }
@@ -46,7 +52,6 @@ async function deleteTodoById(req, res) {
 }
 
 async function deleteTodosByCategory(req, res) {
-    // let todos = await Todo.find();
     let todos = await Todo.remove({categoryId: req.params.id});
     console.log(todos);
     res.send(todos);

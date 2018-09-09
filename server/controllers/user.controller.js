@@ -40,16 +40,28 @@ async function createUser(req, res) {
             message: 'user already exists'
         })
     }
-    return;
+    // return;
 
-    let user = new User({
-        username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, 10) 
-    })
-    let savedUser = await user.save();
-    res.send({
-        status: 'succeeded'
-    });
+    else if(await User.findOne({email: req.body.email})) {
+        res.send({
+            status: 'error',
+            message: 'email already exists'
+        })
+    }
+    // return;
+    else {
+        let user = new User({
+            username: req.body.username,
+            password: bcrypt.hashSync(req.body.password, 10),
+            email: req.body.email
+        })
+        let savedUser = await user.save();
+        console.log(`sending response`)
+        res.send({
+            status: 'succeeded'
+        });
+    }
+    
 }
 
 async function getSingleUser(req, res) {

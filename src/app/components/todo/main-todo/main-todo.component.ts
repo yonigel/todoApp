@@ -5,6 +5,7 @@ import { TodoService } from '../../../services/todoService/todo.service';
 import { Observable } from 'rxjs';
 import { CategoryService } from '../../../services/categoryService/category.service';
 import { Category } from '../../../models/category';
+import { TodoEventsService } from '../../../services/events/todo-events.service';
 
 @Component({
   selector: 'app-main-todo',
@@ -15,8 +16,9 @@ export class MainTodoComponent implements OnInit {
 
   private categoryList: Observable<any>;
   private selectedCategory: Category;
+  private selectedTodo: Todo;
   
-  constructor(private todoService: TodoService, private categoryService: CategoryService) { }
+  constructor(private todoEventService: TodoEventsService ,private todoService: TodoService, private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.selectedCategory = new Category('', '', '', [], '');
@@ -26,6 +28,12 @@ export class MainTodoComponent implements OnInit {
   private onCategorySelect(category: Category) {
     this.selectedCategory = category;
     console.log(category.id);
+  }
+
+  private onTodoSelected(todo: Todo) {
+    this.selectedTodo = todo;
+    this.todoEventService.selectedTodoEditChangedEvent(todo);
+    console.log(`onTodoSelected ${JSON.stringify(todo)}`);
   }
 
 }

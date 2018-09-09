@@ -30,6 +30,7 @@ export class TodoService implements TodoServiceInterface {
     return this.httpService.post(this.TODO_API_PATH, {title: todo.title, description: todo.description, createdBy: todo.createdBy, categoryId: todo.categoryId});
   }
   updateTodo(todoId: string, newTodoParams): Observable<any> {
+    console.log(`got params ${newTodoParams.title} ${newTodoParams.description}`);
     return this.httpService.put(`${this.TODO_API_PATH}/${todoId}`, newTodoParams);
   }
 

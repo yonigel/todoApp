@@ -7,6 +7,11 @@
             <span *ngIf="registrationFormGroupControls.username?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter username</span>
         </div>
         <div class="form-group">
+            <label for="email">email</label>
+            <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter email">
+            <span *ngIf="registrationFormGroupControls.email?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter username</span>
+        </div>
+        <div class="form-group">
             <label for="password">Password</label>
             <input formControlName="password" type="password" class="form-control" id="password" placeholder="Enter Password">
             <small class="form-text text-muted">Please enter password with only english characters, numbers and special chars, 6 to 10 characters</small>

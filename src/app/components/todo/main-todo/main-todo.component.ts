@@ -17,6 +17,7 @@ export class MainTodoComponent implements OnInit {
   private categoryList: Observable<any>;
   private selectedCategory: Category;
   private selectedTodo: Todo;
+  private computerBackgroundUrl = '../../../../assets/images/computerBackground.jpg';
   
   constructor(private todoEventService: TodoEventsService ,private todoService: TodoService, private categoryService: CategoryService) { }
 

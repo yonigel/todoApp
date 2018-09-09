@@ -8,7 +8,6 @@
           </button>
         </div>
         <div class="modal-body">
-          {{editTodoFormGroup.controls.title.value}}
           <form [formGroup]="editTodoFormGroup" (ngSubmit)="oneditTodoSubmit()" *ngIf="!todoEditted">
             <div class="form-group">
               <label for="todoTitle">Title</label>

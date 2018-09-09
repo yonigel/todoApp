@@ -1,10 +1,9 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Todo List</h1>
+    <h1 class="display-4">Todo List</h1> 
     <p class="lead">Welcome to todo-list app! </p>
   </div>
 </div>
-
 <div class="row">
   <app-todo-list class="col-md-4" *ngFor="let category of categoryList | async" [categoryId]="category._id" (selectedCategory)="onCategorySelect($event)" (selectedTodo)="onTodoSelected($event)" ></app-todo-list>
 </div>

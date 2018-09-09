@@ -7,11 +7,13 @@ const bodyParser = require('body-parser');
 const DB_URL = 'mongodb://localhost:27017/usersDB'//'mongodb://yonigel:Yonigel01!@ds229732.mlab.com:29732/todoappusers'
 const PORT = process.env.PORT || 8080;
 
+const mlabs = 'mongodb://yonigel:yonigel01@ds229732.mlab.com:29732/todoappusers';
+
 let userRoute = require('./server/routes/user.route')
 let categoryRoute = require('./server/routes/category.route')
 let todoRoute = require('./server/routes/todo.route')
 
-let mongoDB = process.env.MONGODB_URI || DB_URL
+let mongoDB = mlabs;//process.env.MONGODB_URI || DB_URL
 
 mongoose.connect(mongoDB, {useNewUrlParser: true})
 mongoose.Promise = global.Promise

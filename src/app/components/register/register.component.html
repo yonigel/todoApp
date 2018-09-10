@@ -1,31 +1,64 @@
-<div class="registration">
-    <form [formGroup]="registerFormGroup" (ngSubmit)="onRegistrationSubmit()">
-        <div class="form-group">
-            <label for="username">username</label>
-            <input formControlName="username" type="username" class="form-control" id="username" placeholder="Enter username">
-            <small class="form-text text-muted">Please enter username with only english characters, 6 to 10 characters</small>
-            <span *ngIf="registrationFormGroupControls.username?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter username</span>
-        </div>
-        <div class="form-group">
-            <label for="email">email</label>
-            <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter email">
-            <span *ngIf="registrationFormGroupControls.email?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter username</span>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input formControlName="password" type="password" class="form-control" id="password" placeholder="Enter Password">
-            <small class="form-text text-muted">Please enter password with only english characters, numbers and special chars, 6 to 10 characters</small>
-            <span *ngIf="registrationFormGroupControls.password?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter password</span>
-        </div>
-        <div class="form-group">
-            <label for="confirmPassword">Confirm password</label>
-            <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Enter Password again">
-            <small class="form-text text-muted">Please re-enter the password you entered</small>
-            <span *ngIf="registrationFormGroupControls.confirmPassword.errors?.confirmedPasswordMatch" class="badge badge-danger">passwords are not matched</span>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Register</button>
-        </div>
-    </form>
-    <span *ngIf="isUserAlreadyExists" class="badge badge-danger">this username is already exists</span>
+<div class="registration row computerBackground">
+    <div class="col-md-8 registrationForm">
+        <form [formGroup]="registerFormGroup" (ngSubmit)="onRegistrationSubmit()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <span *ngIf="!registrationFormGroupControls.username?.errors" style="margin-left: 1%;">
+                    <i class="fa fa-check-circle-o" style="color: #93d635"></i>
+                </span>
+                <input formControlName="username" type="username" class="form-control" id="username" placeholder="Enter username">
+                <small class="form-text text-muted">Please enter username with only english characters, 6 to 10 characters</small>
+                <span *ngIf="registrationFormGroupControls.username?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter username</span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address </label>
+                <span *ngIf="!registrationFormGroupControls.email?.errors" style="margin-left: 1%;">
+                    <i class="fa fa-check-circle-o" style="color: #93d635"></i>
+                </span>
+                <input formControlName="email" type="email" class="form-control" id="email" placeholder="Enter email">
+                <span *ngIf="registrationFormGroupControls.email?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter email</span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <span *ngIf="!registrationFormGroupControls.password?.errors" style="margin-left: 1%;">
+                    <i class="fa fa-check-circle-o" style="color: #93d635"></i>
+                </span>
+                <input formControlName="password" type="password" class="form-control" id="password" placeholder="Enter Password">
+                <small class="form-text text-muted">Please enter password with only english characters, numbers and special chars, 6 to 10 characters</small>
+                <span *ngIf="registrationFormGroupControls.password?.errors && isSubmited" class="badge badge-danger">There are some errors, please re-enter password</span>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm password</label>
+                <span *ngIf="!registrationFormGroupControls.confirmPassword?.errors" style="margin-left: 1%;">
+                    <i class="fa fa-check-circle-o" style="color: #93d635"></i>
+                </span>
+                <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Enter Password again">
+                <small class="form-text text-muted">Please re-enter the password you entered</small>
+                <span *ngIf="registrationFormGroupControls.confirmPassword.errors?.confirmedPasswordMatch" class="badge badge-danger">passwords are not matched</span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+        <span *ngIf="isUserAlreadyExists" class="badge badge-danger">this username is already exists</span>
+    </div>
+    <div class="col-md-4 registrationInfo">
+        <h5>After registration you will be able to...</h5> 
+        <p>
+            <i class="fa fa-check-circle-o" style="color: #93d635"></i>    
+            Create and share categories
+        </p>
+        <p>
+            <i class="fa fa-check-circle-o" style="color: #93d635"></i>    
+            Create and share tasks 
+        </p>
+        <p>
+            <i class="fa fa-check-circle-o" style="color: #93d635"></i>    
+            Invite more people to share with you  
+        </p>
+        <p>
+            <i class="fa fa-check-circle-o" style="color: #93d635"></i>    
+            Chat with your team for each category you have  
+        </p>
+    </div>
 </div>

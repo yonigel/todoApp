@@ -60,7 +60,10 @@ app.get('/addCategory', function(req,res) {
     res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
 });
 
-
+app.get('/main', function(req,res) {
+    
+    res.sendFile(path.join(__dirname+'/dist/todoApp/index.html'));
+});
 
 app.use('/users', userRoute);
 app.use('/categories', categoryRoute);

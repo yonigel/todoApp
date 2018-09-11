@@ -1,5 +1,45 @@
-.computerBackground {
-    background-image: url('../../../../assets/images/computerBackground.jpg');
-    height: 100vh;
+.todosBackground {
+
+    background: url('../../../../assets/images/computerBackground.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    padding: 1%;
+
+}
+
+.mainTodoDiv {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #e2e2e2;
+    height: 100%;
+}
+
+.todoDivHeader{ 
+    padding: 1%;
+    /* background-color: #4f4f4f; */
+    background-color: rgba(0, 0, 0, 0.7);
     
+}
+
+.categoriesDiv {
+    padding: 1%;
+}
+
+.categoriesButton {
+    background: none;
+    border: 0;
+    color: black;
+}
+
+.categoryListUl {
+    background-color: rgba(0, 0, 0, 0);
+    color: white
+}
+
+.todosDiv {
+    margin-top: 1%;
 }

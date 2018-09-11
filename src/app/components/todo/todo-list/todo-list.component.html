@@ -1,29 +1,31 @@
-<ul class="list-group" *ngIf="category">
-  <li class="list-group-item disabled">
-    <h3><span class="badge badge-info">
-        {{category.name}}
-    </span></h3>
-  </li>  
-  <li *ngFor="let todo of todoList"  class="list-group-item">
-      <span [ngClass]="{'doneTodo': todo.isDone, 'notDoneTodo': !todo.isDone}">
-        {{todo.title}}
-      </span>
-      <button (click)="setTodoState(todo.id, todo.isDone)" style="float: right;">
-        <span *ngIf="!todo.isDone"><i class="fa fa-circle-o"></i></span>
-        <span *ngIf="todo.isDone"><i class="fa fa-check-circle-o"></i></span>
+  <ul class="list-group" *ngIf="category">
+    <li class="list-group-item disabled">
+      <h3><span class="badge badge-info">
+          {{category.name}}
+      </span></h3>
+    </li>  
+    <li *ngFor="let todo of todoList"  class="list-group-item">
+        <span [ngClass]="{'doneTodo': todo.isDone, 'notDoneTodo': !todo.isDone}">
+          {{todo.title}}
+        </span>
+        <button (click)="setTodoState(todo.id, todo.isDone)" style="float: right;">
+          <span *ngIf="!todo.isDone"><i class="fa fa-circle-o"></i></span>
+          <span *ngIf="todo.isDone"><i class="fa fa-check-circle-o"></i></span>
+        </button>
+        <button data-toggle="modal" data-target="#deleteTodoModal" (click)="changeSelectedTodo(todo)" style="float: right;">
+          <i class="fa fa-trash"></i>
+        </button>
+        <button data-toggle="modal" data-target="#editTodoModal" (click)="changeSelectedTodo(todo)" style="float: right;">
+          <i class="fa fa-pencil"></i>
+        </button>
+    </li>
+    <li class="list-group-item disabled">
+      <button type="button" (click)="changeSelectedCategory()" class="btn" data-toggle="modal" data-target="#addTodoModal">
+        <i class="fa fa-plus"></i>
       </button>
-      <button data-toggle="modal" data-target="#deleteTodoModal" (click)="changeSelectedTodo(todo)" style="float: right;">
-        <i class="fa fa-trash"></i>
-      </button>
-      <button data-toggle="modal" data-target="#editTodoModal" (click)="changeSelectedTodo(todo)" style="float: right;">
-        <i class="fa fa-pencil"></i>
-      </button>
-  </li>
-  <li class="list-group-item disabled">
-    <button type="button" (click)="changeSelectedCategory()" class="btn" data-toggle="modal" data-target="#addTodoModal">
-      <i class="fa fa-plus"></i>
-    </button>
-  </li>
-</ul>
+    </li>
+  </ul>
+
+
 
 

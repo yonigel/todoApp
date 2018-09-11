@@ -6,7 +6,7 @@ import { UserService } from "../services/userService/user.service";
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    private readonly LOGIN_PATH = '/login';
+    private readonly LOGIN_PATH = '/main';
 
     constructor(private userService: UserService, private router: Router) {}
 

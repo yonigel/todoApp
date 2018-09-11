@@ -1,0 +1,9 @@
+.todo {
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+}
+
+.todoTitle {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+}

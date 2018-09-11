@@ -1,0 +1,11 @@
+<ul class="list-group list-group-flush" style="width: 100%;">
+  <li class="list-group-item todoTitle" *ngIf="selectedCategory">{{selectedCategory.name}}</li>
+  <li class="list-group-item todo" *ngFor="let todo of todoList">
+    <div class="row">
+      <div class="col-md-10 col-sm-12 col-xs-12">
+        {{todo.title}}
+      </div>
+        
+    </div>
+  </li>
+</ul>

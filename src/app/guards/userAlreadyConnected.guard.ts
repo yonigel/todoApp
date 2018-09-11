@@ -10,7 +10,7 @@ export class UserAlreadyConnectedGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean{
         if(this.userService.isUserLoggedIn()) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/todos']);
             return false;
         }
         return true;

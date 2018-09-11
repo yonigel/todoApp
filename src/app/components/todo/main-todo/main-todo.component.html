@@ -1,12 +1,49 @@
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Todo List</h1> 
-    <p class="lead">Welcome to todo-list app! </p>
+<div class="todosBackground">
+  <div class="mainTodoDiv">
+
+    <div class="row todoDivHeader">
+      <h3><span class="badge badge-secondary" style="border-radius: 0;">Hello {{username}}! </span></h3>
+    </div>
+
+    <div class="row todoDivBody">
+
+      <div class="col-md-2 col-sm-12 col-xs-12 categoriesDiv">
+        <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#categoryList" aria-controls="categoryList" aria-expanded="false" aria-label="Toggle navigation">
+          Select Category
+          <i class="fa fa-plus-square"></i>
+        </button>
+        <div class=" collapse show"  id="categoryList">
+          <ul class="list-group list-group-flush categoryListUl"> 
+            <li class="list-group-item categoryListUl">
+              <button type="button" class="btn btn-secondary categoriesButton" (click)="selectAllCategories()">All categories</button>
+            </li>
+            <li class="list-group-item categoryListUl" *ngFor="let category of categoryList | async">
+              <button type="button" class="btn btn-secondary categoriesButton" (click)="displayCategory(category._id)">{{category.name}}</button>
+            </li>
+          </ul>
+        </div>
+        
+      </div>
+
+      <div class="col-md-10">
+        <div class="row todosDiv" *ngIf="allCategoriesSelected">
+          <app-todo-list class="col-md-4" *ngFor="let category of categoryList | async" [categoryId]="category._id" (selectedCategory)="onCategorySelect($event)" (selectedTodo)="onTodoSelected($event)" ></app-todo-list>
+        </div>
+
+        <div class="row todosDiv" *ngIf="!allCategoriesSelected">
+          <app-todo-list class="col-md-12" [categoryId]="displayCategoryId" (selectedCategory)="onCategorySelect($event)" (selectedTodo)="onTodoSelected($event)"></app-todo-list>
+          <!-- <app-single-category-todos [displayCategoryId]="displayCategoryId" class="col-md-12"></app-single-category-todos> -->
+
+        </div>
+      </div>
+
+    </div>
+
   </div>
+
+  
 </div>
-<div class="row">
-  <app-todo-list class="col-md-4" *ngFor="let category of categoryList | async" [categoryId]="category._id" (selectedCategory)="onCategorySelect($event)" (selectedTodo)="onTodoSelected($event)" ></app-todo-list>
-</div>
+
 
 <app-add-todo-modal *ngIf="selectedCategory" [categoryId]="selectedCategory.id" [categoryName]="selectedCategory.name"></app-add-todo-modal>
 <app-delete-todo *ngIf="selectedTodo" [todoId]="selectedTodo.id" [todoTitle]="selectedTodo.title"></app-delete-todo>

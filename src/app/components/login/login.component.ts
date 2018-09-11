@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         this.userAuthenticationFailed = true;
         return;
       }
-      this.router.navigate(['/']);
+      this.router.navigate(['/todos']);
     })
 
   }

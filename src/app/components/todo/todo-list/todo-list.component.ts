@@ -5,6 +5,8 @@ import { Category } from '../../../models/category';
 import { TodoService } from '../../../services/todoService/todo.service';
 import { CategoryService } from '../../../services/categoryService/category.service';
 import { TodoEventsService } from '../../../services/events/todo-events.service';
+import {} from '../../../../assets/images'
+import { CategoriesEventsService } from '../../../services/events/categories-events.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -26,7 +28,7 @@ export class TodoListComponent implements OnInit {
   private category: Category;
   private todoList: Todo[];
 
-  constructor(private todoEventsService: TodoEventsService ,private categoryService: CategoryService, private todoService: TodoService) { }
+  constructor(private categoryEventsService: CategoriesEventsService ,private todoEventsService: TodoEventsService ,private categoryService: CategoryService, private todoService: TodoService) { }
 
   ngOnInit() {
     this.todoList = [];
@@ -44,6 +46,12 @@ export class TodoListComponent implements OnInit {
       this.todoList = this.todoList.map((todo) => {
         return todo.id == editedTodo.id ? editedTodo : todo;
       })
+    });
+    this.categoryEventsService.displayCategiryChanged.subscribe(newCategoryId => {
+      console.log(`selected new category ${newCategoryId}`)
+      this.categoryId = newCategoryId;
+      this.getCategoryParams();
+      this.getTodos();
     })
   }
 

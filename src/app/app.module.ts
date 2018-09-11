@@ -23,6 +23,7 @@ import { AddCategoryComponent } from './components/categories/add-category/add-c
 import { DeleteCategoryModalComponent } from './components/categories/delete-category-modal/delete-category-modal.component';
 import { AddTodoModalComponent } from './components/todo/add-todo-modal/add-todo-modal.component';
 import { MainComponent } from './components/mainView/main/main.component';
+import { SingleCategoryTodosComponent } from './components/todo/single-category-todos/single-category-todos.component';
 
 
 const appRoutes: Routes = [
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
     component: MainTodoComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'main', component: MainComponent},
+  { path: 'main', component: MainComponent,canActivate: [UserAlreadyConnectedGuard]},
   { path: 'login', component: LoginComponent, canActivate: [UserAlreadyConnectedGuard]},
   { path: 'register', component: RegisterComponent},
   { path: 'registrationSucceede', component: RegistrationSucceededComponent},
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     AddCategoryComponent,
     DeleteCategoryModalComponent,
     AddTodoModalComponent,
-    MainComponent
+    MainComponent,
+    SingleCategoryTodosComponent
   ],
   imports: [
     BrowserAnimationsModule,
